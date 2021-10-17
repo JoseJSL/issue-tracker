@@ -2,7 +2,7 @@ export interface Issue {
     issueNo: number;
     title: string;
     description: string;
-    priority: 'low' | 'high';
+    priority: 'Low' | 'High';
     type: 'Feature' | 'Bug' | 'Documentation';
     completed?: Date;
 }

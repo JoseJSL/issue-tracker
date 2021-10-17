@@ -8,11 +8,19 @@ import { IssuesService } from '../issues.service';
   styleUrls: ['./issue-list.component.css']
 })
 export class IssueListComponent implements OnInit {
+  public showReportIssue = false;
   public issues: Issue[] = [];
+  public selectedIssue: Issue | null = null;
 
   constructor(private issueService: IssuesService) { }
 
   ngOnInit(): void {
+    this.getIssues();
+    console.log(this.issues);
+  }
+
+  onCloseReport(){
+    this.showReportIssue = false;
     this.getIssues();
   }
 
@@ -20,4 +28,11 @@ export class IssueListComponent implements OnInit {
     this.issues = this.issueService.getPendingIssues();
   }
 
+  onConfirm(confirmed: Boolean){
+    if(confirmed && this.selectedIssue){
+      this.issueService.completeIssue(this.selectedIssue);
+      this.getIssues();
+    }
+    this.selectedIssue = null;
+  }
 }
